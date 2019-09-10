@@ -1,0 +1,53 @@
+.nav-wrapper > img {
+    width: 3.5em;
+    height: 4.0em;
+    margin: 0 1em;
+}
+
+.nav-wrapper>a {
+    font-weight: bold;
+}
+
+.unseen{
+    background-color: white;
+}
+.unseen>i{
+    color: grey !important;
+}
+
+.unseen:hover>i{
+    color: white !important;
+}
+
+.show ul>li>div> a.btn-floating {
+    margin-top: -2.2em;
+    float: right;
+}
+
+.show ul>li>div>a.btn-floating>i {
+    width: inherit;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 40px;
+}
+
+.show ul>li>div>div>a.btn-floating {
+    margin-top: -0.6em;
+    margin-right: 1em;
+}
+.collapsible-header {
+    display: block;
+}
+.collapsible-body {
+    padding: 0;
+    padding-left: 3em;
+}
+
+.episode {
+    text-align: left;
+    padding: 1em 0em 1em 2em;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
