@@ -1,8 +1,13 @@
 package fr.takima.demo;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -25,27 +30,56 @@ public class LibraryController {
         return "index";
     }
 
-    /*@PostMapping
-    public boolean create_user(@RequestParam String user_name, @RequestParam(name = "password_hash") String password) {
+    @GetMapping("/{userId}")
+    public String afficherPagePerso(){
+        return "index";
+    }
+
+    @GetMapping("/create")
+    public String afficherCreateUserPage(Model model){
+        model.addAttribute("user", new User());
+        return "create";
+    }
+
+    @PostMapping("/create")
+    public RedirectView create_user(@ModelAttribute User user, RedirectAttributes attributes) {
         try {
-            new RedirectView("/index");
-            System.out.println("avant");
-            User user = new User(user_name, password);
-            System.out.println("fait");
-            return true;
+            //attributes.addFlashAttribute("message", "Utilisateur ajouté avec succès");
+            userDAO.save(user);
+            return new RedirectView("/");
         } catch (Exception e) {
             System.out.println("ERREUR : " + e);
-            return false;
+            return new RedirectView("/create");
         }
     }
+
+    @GetMapping("/login")
+    public String afficherLogUserPage(Model model){
+        model.addAttribute("userLog", new User());
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public RedirectView log_user(@ModelAttribute User user, RedirectAttributes attributes) {
+        try {
+            int id = userDAO.findUserId(user.getUserName());
+            return new RedirectView("/" + id);
+        } catch (Exception e) {
+            System.out.println("ERREUR : " + e);
+            return new RedirectView("/login");
+        }
+    }
+
+   /* @PostMapping()
+    private boolean add_episode(long show_id, int season_id, int episode_id, int duration_min, int user_id){
+        return true;
+    }
+
 /*
   private boolean login (String user_name, String password){
     return true;
   }
 
-  private boolean add_episode(long show_id, int season_id, int episode_id, int duration_min, int user_id){
-    return true;
-  }
 
   private int time_spent(int user_id){
     int total_duration = 0;

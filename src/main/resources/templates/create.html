@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!--Import Google Icon Font-->
@@ -41,23 +41,23 @@
 
         
   <div class="row">
-        <form class="col s6 offset-s3">
+        <form class="col s6 offset-s3" method="post" th:action="@{/create}" th:object="${user}">
                 <h2>Create Account</h2>
           <div class="row">
             <div class="input-field col s12">
               <i class="material-icons prefix">account_circle</i>
-              <input id="icon_prefix" type="text" class="validate">
-              <label for="icon_prefix">Name</label>
+              <input th:field="*{userName}" id="userName" type="text" class="validate">
+              <label for="userName">Username</label>
             </div>
             <div class="input-field col s12">
               <i class="material-icons prefix">mail</i>
-              <input id="icon_telephone" type="text" class="validate">
-              <label for="icon_telephone">Email</label>
+              <input id="mail" type="text" class="validate">
+              <label for="mail">Email</label>
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">security</i>
-                <input id="icon_telephone" type="password" class="validate">
-                <label for="icon_telephone">Password</label>
+                <input th:field="*{password}" id="pass" type="password" class="validate">
+                <label for="pass">Password</label>
             </div>
           </div>
           <button class="btn waves-effect waves-light right" type="submit" name="action">Create
