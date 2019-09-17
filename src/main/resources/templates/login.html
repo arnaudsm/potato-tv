@@ -12,17 +12,17 @@
 
     <link rel="icon" href="assets/logo.svg">    
     <link rel="icon" href="assets/logo.png">
-    <title>Latest Shows</title>
+    <title>Login</title>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
+</head> 
 
 <body>
 
     <nav>
         <div class="nav-wrapper red darken-4">
             <img src="assets/logo.svg" alt="logo">
-            <a href="#" class="brand-logo"> Potato TV</a>
+            <a href="#" class="brand-logo">Potato TV</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href=""><i class="material-icons left">view_module</i>My Library</a></li>
                 <li><a href=""><i class="material-icons left">exit_to_app</i>Sign Out</a></li>
@@ -31,38 +31,36 @@
     </nav>
 
 
-    <div class="container latest-shows">
+    <div class="container">
         <div class="row">
 
 
-        <h1>Latest Shows</h1>
-        <div class="loader">
-            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </div>
         
-            <div class="col m6 l4 hide">
-                <div class="card hoverable">
-                    <div class="card-image">
-                        <a href="show.html">
 
-                      <img src="">
-                        </a>
-                        <a class="btn-floating halfway-fab waves-effect waves-light hoverable unseen">
-                            <i class="material-icons tooltipped" data-position="top" data-tooltip="Seen">done</i>
-                        </a>
-                    </div>
-                    <div class="card-content">
-                            <span class="card-title">Game of Thrones</span>
+        
+  <div class="row">
+        <form class="col s6 offset-s3">
+                <h2>Login</h2>
+          <div class="row">
 
-                        <p>Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order
-                            of misfits, the Night's Watch, is all that stands between the realms of men and the icy horrors beyond.</p>
-                    </div>
-                    <div class="card-action">
-
-                        <a href="show.html">See more</a>
-                    </div>
-                </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mail</i>
+              <input id="icon_telephone" type="text" class="validate">
+              <label for="icon_telephone">Email</label>
             </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">security</i>
+                <input id="icon_telephone" type="password" class="validate">
+                <label for="icon_telephone">Password</label>
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light right" type="submit" name="action">Login
+                <i class="material-icons right">send</i>
+              </button>
+        </form>
+
+      </div>
+
         </div>
     </div>
     <footer class="page-footer red darken-4">
