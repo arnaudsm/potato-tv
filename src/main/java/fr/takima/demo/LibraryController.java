@@ -12,33 +12,70 @@ import org.springframework.web.servlet.view.RedirectView;
 /**
  *
  */
-@RequestMapping("/")
+
 @Controller
+@RequestMapping("/")
 public class LibraryController {
 
-  private final UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final EpisodeDAO episodeDAO;
 
-  public LibraryController(UserDAO userDAO) {
-    this.userDAO = userDAO;
-  }
+    public LibraryController(UserDAO userDAO, EpisodeDAO episodeDAO) {
+        this.userDAO = userDAO;
+        this.episodeDAO = episodeDAO;
+    }
 
-  @GetMapping
-  public String homePage(Model m) {
-    m.addAttribute("users", userDAO.findAll());
-    return "index";
-  }
+    @GetMapping
+    public String afficherHomePage() {
+        return "index";
+    }
 
-  @GetMapping("/new")
-  public String addUserPage(Model m) {
-    m.addAttribute("user", new User());
-    return "new";
-  }
+    @GetMapping("/{userId}")
+    public String afficherPagePerso() {
+        return "index";
+    }
 
-  @PostMapping("/new")
-  public RedirectView createNewUser(@ModelAttribute User user, RedirectAttributes attrs) {
-    attrs.addFlashAttribute("message", "Utilisateur ajouté avec succès");
-    userDAO.save(user);
-    return new RedirectView("/");
-  }
+    @GetMapping("/create")
+    public String afficherCreateUserPage(Model model) {
+        model.addAttribute("user", new User());
+        return "create";
+    }
 
+    @PostMapping("/create")
+    public RedirectView create_user(@ModelAttribute User user, RedirectAttributes attributes) {
+        try {
+            userDAO.save(user);
+            return new RedirectView("/");
+        } catch (Exception e) {
+            System.out.println("ERREUR : " + e);
+            return new RedirectView("/create");
+        }
+    }
+
+    @GetMapping("/login")
+    public String afficherLogUserPage(Model model) {
+        model.addAttribute("userLog", new User());
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public RedirectView log_user(@ModelAttribute User user, RedirectAttributes attributes) {
+        try {
+            int id = userDAO.findUserId(user.getUserName());
+            return new RedirectView("/" + id);
+        } catch (Exception e) {
+            System.out.println("ERREUR : " + e);
+            return new RedirectView("/login");
+        }
+    }
+
+    @PostMapping("/addEpisode")
+    public boolean add_episode(long show_id, int season_id, int episode_id, int user_id) {
+        return episodeDAO.addedEpisode(user_id, show_id, season_id, episode_id);
+    }
+
+    @PostMapping("/timeSpent")
+    public int time_spent(int user_id) {
+        return episodeDAO.sumTimeSpent(user_id);
+    }
 }
