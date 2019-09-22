@@ -14,5 +14,8 @@ import java.util.List;
 public interface UserDAO extends CrudRepository<User, Long> {
 
     @Query("SELECT id FROM users WHERE user_name = :name")
-    int findUserId(@Param("name") String userName);
+    int userId(@Param("name") String userName);
+
+    /*@Query("SELECT password_hash FROM users WHERE id = :uId")
+    Object userPassword(@Param("uId") long id);*/
 }
