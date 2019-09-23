@@ -63,12 +63,12 @@ public class LibraryController {
         try {
             long id = userDAO.userId(user.getUserName());
             //if(user.getPassword().equals(userDAO.userPassword(id)))
-                return new RedirectView("/" + id);
+                return new RedirectView("/");
             //else
               //  return new RedirectView("/login");
         } catch (Exception e) {
             System.out.println("ERREUR : " + e);
-            return new RedirectView("/create");
+            return new RedirectView("/login");
         }
     }
 

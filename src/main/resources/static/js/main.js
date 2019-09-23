@@ -27,6 +27,7 @@ get_token();
 
 function create_token() {
     $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
         url: (cors_proxy + "https://api.thetvdb.com/login"),
         type: 'POST',
         data: JSON.stringify(auth),
@@ -71,6 +72,7 @@ function connection_callback() {
 function search_show() {
     console.log("send request : " + token);
     $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
         url: "https://cors.arnaud.at/https://api.thetvdb.com/search/series?name=simpsons",
         type: 'GET',
         dataType: 'json',
@@ -87,6 +89,7 @@ function search_show() {
 function latest_shows() {
     var from_time = parseInt((new Date).getTime() / 1000 - 24 * 60 * 60); // Get shows updated in the last 24 hours
     $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
         url: "https://cors.arnaud.at/https://api.thetvdb.com/updated/query",
         type: 'GET',
         dataType: 'json',
@@ -103,6 +106,7 @@ function latest_shows() {
 
 function get_show(show_id, callback) {
     $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
         url: "https://cors.arnaud.at/https://api.thetvdb.com/series/" + show_id,
         type: 'GET',
         dataType: 'json',
@@ -119,6 +123,7 @@ function get_show(show_id, callback) {
 
 function get_seasons(show_id, callback) {
     $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
         url: "https://cors.arnaud.at/https://api.thetvdb.com/series/" + show_id + "/episodes/summary",
         type: 'GET',
         dataType: 'json',
@@ -134,6 +139,7 @@ function get_seasons(show_id, callback) {
 
 function get_image(show_id, image) {
     $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
         url: "https://cors.arnaud.at/https://api.thetvdb.com/series/" + show_id + "/images/query",
         type: 'GET',
         dataType: 'json',
@@ -150,6 +156,7 @@ function get_image(show_id, image) {
         beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
     });
 }
+
 
 function display_show_cards(shows) {
     for (const show of shows) {
@@ -182,9 +189,28 @@ function display_show_card(data) {
 function display_show_page(data) {
     get_image(data.id, $(".parallax-container img"));
     $(".show h1").text(data.seriesName);
+    $(".show h1").data("show-id",data.id);
+
     $(".show .col p").text(data.overview);
     get_seasons(data.id, display_seasons);
     console.log(data);
+}
+
+
+function get_episode(show_id, season_id) {
+    $.ajax({
+        headers: {"x-requested-with": "XMLHttpRequest"},
+        url: "https://cors.arnaud.at/https://api.thetvdb.com/series/" + show_id + "/episodes/query",
+        type: 'GET',
+        dataType: 'json',
+        data: {"airedSeason":season_id},
+        success: function (data, status) {
+            console.log(data);
+        },
+        error: function (err) {
+        },
+        beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
+    });
 }
 
 function display_seasons(data) {
@@ -197,7 +223,10 @@ function display_seasons(data) {
 
         var new_season = $(".seasons .collapsible").first().clone();
         new_season.find('.collapsible-header div').text('Season '+season);
+        new_season.data("season-id", "test"); // TODO
         new_season.appendTo(".seasons").removeClass('hide');
+  
+        get_episode($(".show h1").data("show-id"), season);
     }
 
     var elems = document.querySelectorAll('.collapsible');
