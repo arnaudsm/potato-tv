@@ -8,6 +8,8 @@
 ## Notes pour les enseignants
 Comme convenu, l'authentification n'est pas implémentée. Nous avons néanmoins disposé les pages et fonctions nécéssaires pour l'implémenter dans le futur.
 
+Nous utilisons l'API de the TVdB à travers un proxy CORS auto-hébergé pour passer le firewall EPF. Si l'API ne fonctionne plus, effacez vos cookies et LocalStorage de la page.
+
 
 ## Launch
 1. Cloner le projet en utilisant la commande `git clone https://github.com/arnaudsm/potato-tv`
