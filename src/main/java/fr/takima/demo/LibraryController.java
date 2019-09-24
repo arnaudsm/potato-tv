@@ -1,6 +1,8 @@
 package fr.takima.demo;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,9 +32,16 @@ public class LibraryController {
         return "index";
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/profile")
     public String displayPagePerso() {
-        return "index";
+        return "profile";
+    }
+
+
+    @GetMapping("/show/{showID}")
+    public String displayShow(@PathVariable("showID") long showID, Model model) {
+        model.addAttribute("showID", showID);
+        return "show";
     }
 
     @GetMapping("/create")
@@ -77,19 +86,24 @@ public class LibraryController {
         return new RedirectView("/");
     }
 
-    @GetMapping("/{userId}/library")
-    public String showShows(@PathVariable("userID") long id, Model model) {
-        List<String> seriesPerso = episodeDAO.mySeries(id);
-        String viewedEpisodes = new String();
-        for (String episode : seriesPerso) {
-            viewedEpisodes.concat(episode);
-        }
-        model.addAttribute("series", seriesPerso);
+    @GetMapping(value="/{userId}/library", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String showShows(@PathVariable("userId") long id, Model model) {
+        List<String> seriesPerso = episodeDAO.myShow(id);
+        String viewedEpisodes = String.join(",",seriesPerso);
         return viewedEpisodes;
     }
 
+    @RequestMapping(value = "/timeSpent", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
+    @ResponseBody
+    public String timeSpent(long userId) {
+        Long time = episodeDAO.sumTimeSpent(userId);
+        // TODO REQUESTS
+        return String.valueOf(time);
+    }
+
     @PostMapping("/addEpisode")
-    public boolean addEpisode(long showId, int seasonId, int episodeId, long userId, int durationMin) {
+    public void addEpisode(long showId, int seasonId, int episodeId, long userId, int durationMin) {
         boolean alreadyInIt = episodeDAO.isAdded(userId, showId, seasonId, episodeId, durationMin);
         if (!alreadyInIt) {
             Episode newEpisode = new Episode();
@@ -100,21 +114,22 @@ public class LibraryController {
             newEpisode.setUser_id(userId);
             episodeDAO.save(newEpisode);
         }
-        return alreadyInIt;
     }
 
-    @PostMapping("/timeSpent")
-    public int timeSpent(long userId) {
-        return episodeDAO.sumTimeSpent(userId);
-    }
-
-    @PostMapping("/removeEpisode")
-    public boolean removeEpisode(long showId, int seasonId, int episodeId, long userId, int durationMin) {
-        boolean exist = episodeDAO.isAdded(userId, showId, seasonId, episodeId, durationMin);
-        if (exist) {
-            Episode episodeToRemove = episodeDAO.episodeToDelete(userId, showId, seasonId, episodeId, durationMin);
-            episodeDAO.delete(episodeToRemove);
+    @GetMapping(value="/isSeen", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String isSeen(long showId, int seasonId, int episodeId, long userId, int durationMin) {
+        boolean alreadyInIt = episodeDAO.isAdded(userId, showId, seasonId, episodeId, durationMin);
+        if(alreadyInIt) {
+            return "1";
+        } else {
+            return "0";
         }
-        return exist;
+    }
+
+    @Transactional
+    @PostMapping("/removeEpisode")
+    public void removeEpisode(long showId, int seasonId, int episodeId, long userId, int durationMin) {
+        episodeDAO.deleteEpisode(userId, showId, seasonId, episodeId);
     }
 }
