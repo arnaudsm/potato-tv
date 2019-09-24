@@ -127,3 +127,11 @@
     padding: 5em;
     text-align: center;
 }
+
+.collapsible {
+  margin: 0;
+}
+
+.btn-floating:hover {
+  opacity: 0.5;
+}
