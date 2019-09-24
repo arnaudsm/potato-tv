@@ -12,24 +12,14 @@
 
     <link rel="icon" href="/images/logo.svg">
     <link rel="icon" href="/images/logo.png">
-    <title>Game of Thrones</title>
+    <title>Potato TV</title>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
 
-    <nav>
-        <div class="nav-wrapper red darken-4">
-            <img src="/images/logo.svg" alt="logo">
-            <a href="#" class="brand-logo"> Potato TV</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href=""><i class="material-icons left">view_module</i>My Library</a></li>
-                <li><a href="exit"><i class="material-icons left">exit_to_app</i>Sign Out</a></li>
-                <li><a href="create"><i class="material-icons left">exit_to_app</i>Create Account</a></li>
-                <li><a href="login"><i class="material-icons left">exit_to_app</i>Login</a></li>
-            </ul>
-        </div>
+    <nav th:replace="fragments/layout :: nav">
     </nav>
     <div class="parallax-container">
         <div class="parallax"><img src=""></div>
@@ -39,7 +29,7 @@
         <div class="row">
 
 
-            <h1></h1>
+            <h1 th:attr="data-show-id=${showID}"></h1>
 
 
 
@@ -53,21 +43,17 @@
             <div class="col m12 l8 seasons">
                 <ul class="collapsible hide">
                     <li>
-                        <div class="collapsible-header">
+                        <div class="collapsible-header season">
 
                             <div>
-                                Saison 1
-
                             </div>
 
-                            <a class="btn-floating unseen"><i class="material-icons">done</i></a>
+                            <a onclick="watched(this)" class="btn-floating unseen tooltipped" data-position="left" data-tooltip="Seen"><i class="material-icons">done</i></a>
                         </div>
                         <div class="collapsible-body">
-                            <div class="episode">
-                                <a class="btn-floating unseen right"><i class="material-icons">done</i></a> Lorem ipsum dolor sit amet.
-                            </div>
-                            <div class="episode">
-                                <a class="btn-floating unseen right"><i class="material-icons">done</i></a> Lorem ipsum dolor sit amet.
+                            <div class="episode hide">
+                                <a onclick="watched(this)" class="btn-floating unseen tooltipped right" data-position="left" data-tooltip="Seen"><i class="material-icons">done</i></a>
+                                <div></div>
                             </div>
                         </div>
                     </li>
@@ -77,21 +63,7 @@
 
         </div>
     </div>
-    <footer class="page-footer red darken-4">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <p class="grey-text text-lighten-4">Our service uses the <a href="https://www.thetvdb.com">TVDB</a> APIs.</p>
-                </div>
-
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2019 Copyright Potato TV
-                <a class="grey-text text-lighten-4 right" href="https://arnaud.at">Hire us !</a>
-            </div>
-        </div>
+    <footer th:replace="fragments/layout :: footer">
     </footer>
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
