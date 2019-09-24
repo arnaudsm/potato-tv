@@ -85,7 +85,6 @@ function search_show() {
         type: 'GET',
         dataType: 'json',
         success: function (data, status) {
-            console.log(data);
         },
         error: function (err) {
 
@@ -101,7 +100,6 @@ function timeConvert(time) {
 }
 
 function show_time_spent(minutes) {
-    console.log(minutes);
     var formatted_time = timeConvert(minutes);
     $(".user-spent .card-title").html("You spent <b>" + formatted_time + "</b> of your life watching TV Shows.");
 
@@ -127,7 +125,6 @@ function user_shows() {
         success: function (data, status) {
             user_shows = data.split(",");
             for (const show of user_shows) {
-                console.log(show);
                 get_show(show, display_show_card);
             }
         },
@@ -293,10 +290,8 @@ function get_season(show_id, season_id, new_season_div) {
 }
 
 function display_seasons(data) {
-    console.log(data.airedSeasons);
     var seasons = data.airedSeasons.map(season => parseInt(season));
     seasons.sort();
-    console.log(seasons);
     seasons.sort(function (a, b) { return parseInt(a) - parseInt(b) });
 
 
@@ -348,7 +343,6 @@ function watched(button) {
         var durationMin = $(".show h1").attr("data-show-runtime");
 
         $(watched).parent().find(".episode:not(.hide)").each(function () {
-            console.log(this);
             var episodeId = $(this).attr('data-episode-number');
             watch_list.push(new Episode(showId, seasonId, episodeId, userId, durationMin));
         });
@@ -366,7 +360,6 @@ function watched(button) {
         var durationMin = $(".show h1").attr("data-show-runtime");
         var episodeId = $(watched).attr('data-episode-number');
         watch_list.push(new Episode(showId, seasonId, episodeId, userId, durationMin))
-        console.log(watch_list);
         $(button).toggleClass("unseen");
         if (unseen) {
             M.toast({ html: 'Episode added to your library' });
@@ -406,7 +399,6 @@ function view_episode(episode, unseen) {
                 "durationMin": episode.durationMin
             },
             success: function (data, status) {
-                console.log(data);
             },
             error: function (err) {
 
@@ -426,7 +418,6 @@ function view_episode(episode, unseen) {
                 "durationMin": episode.durationMin
             },
             success: function (data, status) {
-                console.log(data);
             },
             error: function (err) {
 
@@ -436,7 +427,6 @@ function view_episode(episode, unseen) {
 }
 
 function is_seen(episode, button) {
-    console.log(episode);
     $.ajax({
         url: "/isSeen",
         type: 'GET',
@@ -460,7 +450,6 @@ function is_seen(episode, button) {
 }
 
 function check_season_complete(season_div) {
-    console.log(season_div);
     if (season_div.parent().find(".episode:not(.hide) .unseen").length == 0){
         season_div.find(".unseen").removeClass("unseen");
     }
