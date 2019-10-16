@@ -5,24 +5,9 @@
 - [Coumba Ndiaye](https://github.com/slevine95)
 - Marianne Strassburger
 
-## Notes pour les enseignants
-Comme convenu, l'authentification n'est pas implémentée. Nous avons néanmoins disposé les pages et fonctions nécéssaires pour l'implémenter dans le futur.
-
-Nous utilisons l'API de the TVdB à travers un proxy CORS auto-hébergé pour passer le firewall EPF. Si l'API ne fonctionne plus, effacez vos cookies et LocalStorage de la page.
-
-
-## Launch
-1. Cloner le projet en utilisant la commande `git clone https://github.com/arnaudsm/potato-tv`
-
-2. Importer le projet dans IntelliJ IDEA en important le fichier "pom.xml" à la racine de ce repository.
-
-3. Exécuter votre DB mysql. Si vous avez docker, vous pouvez utiliser la commande suivante:
-```
-docker run --name mariadb --rm -e MYSQL_ROOT_PASSWORD=toor -e MYSQL_DATABASE=defaultdb -p 3306:3306 -v "`pwd`/initdb:/docker-entrypoint-initdb.d" mariadb
-```
-
-4. Tous les scripts sql contenus dans le dossier initdb seront exécutés automatiquement lors du premier chargement de la DB.
-
+# Are you looking for a Software Engineer ? 
+- I'm looking for a **Master Internship** in **2020** in **North America** !
+- Please check out my [Resume.](https://arnaud.at/cv)
 
 ## Features
 ### Latest Shows
@@ -57,3 +42,22 @@ Visualize your Profile Page to see your collection and total time spent watching
 - [x] Latest Shows
 - [x] Show page
 - [x] Profile : Seen Shows and total time
+
+
+## Notes pour les enseignants
+Comme convenu, l'authentification n'est pas implémentée. Nous avons néanmoins disposé les pages et fonctions nécéssaires pour l'implémenter dans le futur.
+
+Nous utilisons l'API de the TVdB à travers un proxy CORS auto-hébergé pour passer le firewall EPF. Si l'API ne fonctionne plus, effacez vos cookies et LocalStorage de la page.
+
+
+## Launch
+1. Cloner le projet en utilisant la commande `git clone https://github.com/arnaudsm/potato-tv`
+
+2. Importer le projet dans IntelliJ IDEA en important le fichier "pom.xml" à la racine de ce repository.
+
+3. Exécuter votre DB mysql. Si vous avez docker, vous pouvez utiliser la commande suivante:
+```
+docker run --name mariadb --rm -e MYSQL_ROOT_PASSWORD=toor -e MYSQL_DATABASE=defaultdb -p 3306:3306 -v "`pwd`/initdb:/docker-entrypoint-initdb.d" mariadb
+```
+
+4. Tous les scripts sql contenus dans le dossier initdb seront exécutés automatiquement lors du premier chargement de la DB.
