@@ -1,13 +1,9 @@
-# <img src="graphics/logo.svg" width="25"> Potato TV - Student Project
+# <img src="graphics/logo.svg" width="25"> Potato TV
 ![Logo](graphics/banner.png)
 ## Contributors
 - [Arnaud de Saint Méloir](http://github.com/arnaudsm/)
 - [Coumba Ndiaye](https://github.com/slevine95)
 - Marianne Strassburger
-
-# Are you looking for a Software Engineer ? 
-- I'm looking for a **Master Internship** in **2020** in **North America** !
-- Please check out my [Resume.](https://arnaud.at/cv)
 
 ## Features
 ### Latest Shows
